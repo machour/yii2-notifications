@@ -11,13 +11,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist machour/yii2-notifications "*"
+php composer.phar require --prefer-dist machour/yii2-notifications "@dev"
 ```
 
 or add
 
 ```
-"machour/yii2-notifications": "*"
+"machour/yii2-notifications": "@dev"
 ```
 
 to the require section of your `composer.json` file.
