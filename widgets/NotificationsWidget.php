@@ -43,6 +43,11 @@ class NotificationsWidget extends Widget
      */
     const THEME_NOTY = 'noty';
     /**
+     * Use NotifIt!
+     * @see http://naoxink.hol.es/notifIt/
+     */
+    const THEME_NOTIFIT = 'notifit';
+    /**
      * Use Notify
      * @see https://notifyjs.com/
      */
@@ -104,7 +109,8 @@ class NotificationsWidget extends Widget
         self::THEME_NOTY,
         self::THEME_NOTIFY,
         self::THEME_PNOTIFY,
-        self::THEME_TOASTR
+        self::THEME_TOASTR,
+        self::THEME_NOTIFIT
     ];
 
     /**

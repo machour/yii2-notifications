@@ -36,6 +36,28 @@ var Notifications = (function(options) {
         },
 
         /**
+         * NotifIt!
+         * @see http://naoxink.hol.es/notifIt/
+         */
+        notifit: {
+            types: {
+                default: 'info'
+            },
+            show: function (object) {
+                notif($.extend({
+                    timeout: self.opts.delay,
+                    clickable: true,
+                    multiline: true,
+                    msg: "<b>" + object.title + "</b><br /><br />" + object.description,
+                    type: getType(object.type)
+                }, self.opts.options));
+                $("#ui_notifIt").click(function(e) {
+                    document.location = object.url;
+                });
+            }
+        },
+
+        /**
          * Notify.js
          * @see https://notifyjs.com/
          */

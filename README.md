@@ -249,6 +249,7 @@ Currently supported libraries are:
 | Noty           | THEME_NOTY    | 2.3.7           | http://ned.im/noty/                      |
 | PNotify        | THEME_PNOTIFY | 2.1             | http://sciactive.com/pnotify/            |
 | Toastr         | THEME_TOASTR  | 1.2.2           | https://github.com/CodeSeven/toastr      |
+| NotifIt!       | THEME_NOTIFIT | master          | http://naoxink.hol.es/notifIt/           |
 
 If you'de like to add support for another notification UI library, edit the `assets/notifications.js` file
 ad add a new entry into the `Notification.themes` property.

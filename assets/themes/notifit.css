@@ -1,0 +1,49 @@
+#ui_notifIt{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    -wekbit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 2000;
+}
+#ui_notifIt:hover{
+    opacity: 1 !important;
+}
+#ui_notifIt p{
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+/* Color setup */
+/* You are free to change all of this */
+#ui_notifIt.success{
+    background-color: yellowgreen;
+    color: white;
+}
+#ui_notifIt.error{
+    background-color: orangered;
+    color: white;
+}
+#ui_notifIt.warning{
+    background-color: orange;
+    color: white;
+}
+#ui_notifIt.info{
+    background-color: deepskyblue;
+    color: white;
+}
+#ui_notifIt.default{
+    background-color: #EEE;
+    color: #444;
+}
