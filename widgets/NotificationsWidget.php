@@ -18,7 +18,13 @@ use yii\web\AssetBundle;
  * use machour\yii2\notifications\widgets\NotificationsWidget;
  *
  * NotificationsWidget::widget([
- * 'theme' => NotificationsWidget::THEME_NOTY
+ *     'theme' => NotificationsWidget::THEME_GROWL,
+ *     // If the notifications count changes, the $('.notifications-count') element
+ *     // will be updated with the current count
+ *     'counters' => ['.notifications-count'],
+ *     'clientOptions' => [
+ *         'size' => 'large',
+ *     ],
  * ]);
  * </code>
  *
@@ -65,6 +71,12 @@ class NotificationsWidget extends Widget
     public $seen = false;
 
     /**
+     * @var array An array of jQuery selector to be updated with the current
+     *            notifications count
+     */
+    public $counters;
+
+    /**
      * @var array List of built in themes
      */
     protected static $_builtinThemes = [
@@ -102,6 +114,7 @@ class NotificationsWidget extends Widget
             'delay' => Html::encode($this->delay),
             'options' => $this->clientOptions,
             'seen' => !!$this->seen,
+            'counters' => $this->counters,
         ];
 
         $js = 'Notifications(' . Json::encode($params) . ');';

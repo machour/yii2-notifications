@@ -31,7 +31,7 @@ var Notifications = (function(options) {
         timeout: 2000,
         seen: false,
         theme: THEME_GROWL,
-        counters: ['li.dropdown.notifications-menu  a  span'],
+        counters: []
     }, options);
 
 
@@ -75,6 +75,7 @@ var Notifications = (function(options) {
                     self.displayed.push(object.id);
                 });
 
+                // Update all counters
                 for (var i = 0; i < self.opts.counters.length; i++) {
                     if ($(self.opts.counters[i]).text() != data.length) {
                         $(self.opts.counters[i]).text(data.length);

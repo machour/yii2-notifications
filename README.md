@@ -207,6 +207,9 @@ use machour\yii2\notifications\widgets\NotificationsWidget;
 
 NotificationsWidget::widget([
     'theme' => NotificationsWidget::THEME_GROWL,
+     // If the notifications count changes, the $('.notifications-count') element
+     // will be updated with the current count
+    'counters' => ['.notifications-count'],
     'clientOptions' => [
         'size' => 'large',
     ],
@@ -217,11 +220,12 @@ NotificationsWidget::widget([
 
 | Parameter      | Description                                                                 | Default     |
 | -------------- | --------------------------------------------------------------------------- | -----------:|
-| theme          | Can be either THEME_NOTY or THEME_GROWL                                     | THEME_GROWL |
 | clientOptions  | An array of options to be passed to the underlying UI notifications library | []          |
-| seen           | Whether to show already seen notifications                                  | false       |
 | delay          | The delay in milliseconds between polls                                     | 5000        |
+| theme          | Can be either THEME_NOTY or THEME_GROWL                                     | THEME_GROWL |
 | timeout        | The XHR request timeout in milliseconds                                     | 2000        |
+| seen           | Whether to show already seen notifications                                  | false       |
+| counters       | An array of jQuery selectors to update with the current notifications count | []          |
 
 
 TODO
