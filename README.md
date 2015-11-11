@@ -219,6 +219,7 @@ NotificationsWidget::widget([
 | -------------- | --------------------------------------------------------------------------- | -----------:|
 | theme          | Can be either THEME_NOTY or THEME_GROWL                                     | THEME_GROWL |
 | clientOptions  | An array of options to be passed to the underlying UI notifications library | []          |
+| seen           | Whether to show already seen notifications                                  | false       |
 | delay          | The delay in milliseconds between polls                                     | 5000        |
 | timeout        | The XHR request timeout in milliseconds                                     | 2000        |
 

@@ -27,6 +27,8 @@ class NotificationsController extends Controller
      */
     public function init()
     {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
         $this->user_id = $this->module->userId;
         $this->notificationClass = $this->module->notificationClass;
         parent::init();
@@ -35,15 +37,17 @@ class NotificationsController extends Controller
     /**
      * Poll action
      *
+     * @param int $seen Whether to show already seen notifications
      * @return array
      */
-    public function actionPoll()
+    public function actionPoll($seen = 0)
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
         /** @var Notification $class */
         $class = $this->notificationClass;
-        $models = $class::find()->where(['user_id' => $this->user_id])->all();
+        $models = $class::find()->where([
+            'user_id' => $this->user_id,
+            'seen' => $seen
+        ])->all();
 
         $results = [];
 
@@ -54,6 +58,7 @@ class NotificationsController extends Controller
                 'title' => $model->getTitle(),
                 'description' => $model->getDescription(),
                 'url' => Url::to($model->getRoute()),
+                'rnr-url' => Url::to(['notifications/rnr', 'id' => $model->id]),
                 'key' => $model->key,
             ];
         }
@@ -61,10 +66,26 @@ class NotificationsController extends Controller
     }
 
     /**
+     * Marks a notification as read and redirects the user to the final route
+     *
+     * @param int $id The notification id
+     * @return Response
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
+     */
+    public function actionRnr($id)
+    {
+        $notification = $this->actionRead($id);
+        return $this->redirect(Url::to($notification->getRoute()));
+    }
+
+    /**
      * Marks a notification as read
      *
-     * @param $id
-     * @throws HttpException
+     * @param int $id The notification id
+     * @return Notification The updated notification record
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
      */
     public function actionRead($id)
     {
@@ -81,5 +102,7 @@ class NotificationsController extends Controller
 
         $notification->seen = 1;
         $notification->save();
+
+        return $notification;
     }
 }

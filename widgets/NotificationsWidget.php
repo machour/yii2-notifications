@@ -60,6 +60,11 @@ class NotificationsWidget extends Widget
     public $timeout = 2000;
 
     /**
+     * @var boolean Whether to show already seen notifications
+     */
+    public $seen = false;
+
+    /**
      * @var array List of built in themes
      */
     protected static $_builtinThemes = [
@@ -96,6 +101,7 @@ class NotificationsWidget extends Widget
             'timeout' => Html::encode($this->timeout),
             'delay' => Html::encode($this->delay),
             'options' => $this->clientOptions,
+            'seen' => !!$this->seen,
         ];
 
         $js = 'Notifications(' . Json::encode($params) . ');';

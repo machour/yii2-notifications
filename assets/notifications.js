@@ -29,6 +29,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         delay: 5000,
         timeout: 2000,
+        seen: false,
         theme: THEME_GROWL,
         counters: ['li.dropdown.notifications-menu  a  span'],
     }, options);
@@ -43,6 +44,9 @@ var Notifications = (function(options) {
         $.ajax({
             url: this.opts.url,
             type: "GET",
+            data: {
+                seen: this.opts.seen ? 1 : 0
+            },
             success: function(data) {
                 $.each(data, function (index, object) {
                     if (self.displayed.indexOf(object.id) !== -1) {
