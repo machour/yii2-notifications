@@ -205,6 +205,9 @@ Notification::error(Notification::KEY_NO_DISK_SPACE, $admin_id);
 This package comes with a `NotificationsWidget` that can be used to regularly poll the server for new
 notifications and trigger them visually using either jQuery Growl, or Noty.
 
+When clicked, a notification will be marked as seen, and the user will be redirected to the notification
+route.
+
 ![Growl notification](docs/growl.png)
 
 This widget should be used in your main layout file as follows:
@@ -221,13 +224,11 @@ NotificationsWidget::widget([
         'size' => 'large',
     ],
 ]);
-
-]);
 ```
 
 | Parameter      | Description                                                                 | Default     |
 | -------------- | --------------------------------------------------------------------------- | -----------:|
-| theme          | Can be either THEME_NOTY, THEME_GROWL, THEME_NOTIFY                         | THEME_GROWL |
+| theme          | One of the THEME_XXX constants. See supported libraries for a full list     | THEME_GROWL |
 | clientOptions  | An array of options to be passed to the underlying UI notifications library | []          |
 | delay          | The time to leave the notification shown on screen                          | 5000        |
 | pollInterval   | The delay in milliseconds between polls                                     | 5000        |
@@ -241,9 +242,12 @@ Supported libraries
 
 Currently supported libraries are:
 
-* [jQuery Growl](https://github.com/ksylvest/jquery-growl) (v 1.3.1)
-* [Notify.js](https://notifyjs.com/) (v 0.3.4)
-* [Noty](http://ned.im/noty/) (v 2.3.7)
+| Library        | Constant      | Shipped version | Project homepage                         |
+| -------------- | ------------- | --------------- | ---------------------------------------- |
+| jQuery Growl   | THEME_GROWL   | 1.3.1           | https://github.com/ksylvest/jquery-growl |
+| Notify.js      | THEME_NOTIFY  | 0.3.4           | https://notifyjs.com/                    |
+| Noty           | THEME_NOTY    | 2.3.7           | http://ned.im/noty/                      |
+| Toastr         | THEME_TOASTR  | 1.2.2           | https://github.com/CodeSeven/toastr      |
 
 If you'de like to add support for another notification UI library, edit the `assets/notifications.js` file
 ad add a new entry into the `Notification.themes` property.

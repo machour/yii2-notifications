@@ -17,6 +17,10 @@ var Notifications = (function(options) {
      * @type Object
      */
     this.themes = {
+        /**
+         * jQuery Growl
+         * @see https://github.com/ksylvest/jquery-growl
+         */
         growl: {
             types: {
                 success: 'notice'
@@ -31,6 +35,26 @@ var Notifications = (function(options) {
             }
         },
 
+        /**
+         * Notify.js
+         * @see https://notifyjs.com/
+         */
+        notify: {
+            types: {
+                warning: 'warn',
+                default: 'info'
+            },
+            show: function (object) {
+                $.notify(object.title, getType(object.type), $.extend({
+                    autoHideDelay: self.opts.delay,
+                }, self.opts.options));
+            }
+        },
+
+        /**
+         * Noty
+         * @see http://ned.im/noty/
+         */
         noty: {
             types: {
                 default: 'information'
@@ -52,14 +76,20 @@ var Notifications = (function(options) {
             }
         },
 
-        notify: {
+        /**
+         * Toastr
+         * @see https://codeseven.github.io/toastr/
+         */
+        toastr: {
             types: {
-                warning: 'warn',
                 default: 'info'
             },
             show: function (object) {
-                $.notify(object.title, getType(object.type), $.extend({
-                    autoHideDelay: self.opts.delay,
+                toastr[getType(object.type)](object.description, object.title, $.extend({
+                    timeOut: self.opts.delay,
+                    onclick: function() {
+                        document.location = object.url;
+                    }
                 }, self.opts.options));
             }
         }

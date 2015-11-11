@@ -47,6 +47,11 @@ class NotificationsWidget extends Widget
      * @see https://notifyjs.com/
      */
     const THEME_NOTIFY = 'notify';
+    /**
+     * Use Toastr
+     * @see https://github.com/CodeSeven/toastr
+     */
+    const THEME_TOASTR = 'toastr';
 
     /**
      * @var array additional options to be passed to the notification library.
@@ -93,6 +98,7 @@ class NotificationsWidget extends Widget
         self::THEME_GROWL,
         self::THEME_NOTY,
         self::THEME_NOTIFY,
+        self::THEME_TOASTR
     ];
 
     /**
