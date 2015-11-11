@@ -77,6 +77,25 @@ var Notifications = (function(options) {
         },
 
         /**
+         * PNotify
+         * @see http://sciactive.com/pnotify/
+         */
+        pnotify: {
+            types: {
+                warning: 'notice',
+                default: 'info'
+            },
+            show: function (object) {
+                new PNotify($.extend({
+                    title: object.title,
+                    text: '<a href="' + object.url + '" style="text-decoration: none;">' + object.description + '</a>',
+                    type: getType(object.type),
+                    delay: self.opts.delay
+                }, self.opts.options));
+            }
+        },
+
+        /**
          * Toastr
          * @see https://codeseven.github.io/toastr/
          */

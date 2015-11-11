@@ -48,6 +48,11 @@ class NotificationsWidget extends Widget
      */
     const THEME_NOTIFY = 'notify';
     /**
+     * Use Pnotify
+     * @see http://sciactive.com/pnotify/
+     */
+    const THEME_PNOTIFY = 'pnotify';
+    /**
      * Use Toastr
      * @see https://github.com/CodeSeven/toastr
      */
@@ -98,6 +103,7 @@ class NotificationsWidget extends Widget
         self::THEME_GROWL,
         self::THEME_NOTY,
         self::THEME_NOTIFY,
+        self::THEME_PNOTIFY,
         self::THEME_TOASTR
     ];
 

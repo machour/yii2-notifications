@@ -247,6 +247,7 @@ Currently supported libraries are:
 | jQuery Growl   | THEME_GROWL   | 1.3.1           | https://github.com/ksylvest/jquery-growl |
 | Notify.js      | THEME_NOTIFY  | 0.3.4           | https://notifyjs.com/                    |
 | Noty           | THEME_NOTY    | 2.3.7           | http://ned.im/noty/                      |
+| PNotify        | THEME_PNOTIFY | 2.1             | http://sciactive.com/pnotify/            |
 | Toastr         | THEME_TOASTR  | 1.2.2           | https://github.com/CodeSeven/toastr      |
 
 If you'de like to add support for another notification UI library, edit the `assets/notifications.js` file
