@@ -3,6 +3,13 @@ About
 
 This is a notifications module for your Yii 2 powered application.
 
+This module will install it's own table, and quickly allow you to:
+  * Trigger notifications to your users
+  * Display these notifications using one of the supported UI libraries
+  
+![Growl notification](docs/growl.png)
+
+
 Installation
 ------------
 
@@ -220,17 +227,66 @@ NotificationsWidget::widget([
 
 | Parameter      | Description                                                                 | Default     |
 | -------------- | --------------------------------------------------------------------------- | -----------:|
+| theme          | Can be either THEME_NOTY, THEME_GROWL, THEME_NOTIFY                         | THEME_GROWL |
 | clientOptions  | An array of options to be passed to the underlying UI notifications library | []          |
-| delay          | The delay in milliseconds between polls                                     | 5000        |
-| theme          | Can be either THEME_NOTY or THEME_GROWL                                     | THEME_GROWL |
-| timeout        | The XHR request timeout in milliseconds                                     | 2000        |
-| seen           | Whether to show already seen notifications                                  | false       |
+| delay          | The time to leave the notification shown on screen                          | 5000        |
+| pollInterval   | The delay in milliseconds between polls                                     | 5000        |
+| pollSeen       | Whether to show already seen notifications                                  | false       |
+| xhrTimeout     | The XHR request timeout in milliseconds                                     | 2000        |
 | counters       | An array of jQuery selectors to update with the current notifications count | []          |
 
+
+Supported libraries
+-------------------
+
+Currently supported libraries are:
+
+* [jQuery Growl](https://github.com/ksylvest/jquery-growl) (v 1.3.1)
+* [Notify.js](https://notifyjs.com/) (v 0.3.4)
+* [Noty](http://ned.im/noty/) (v 2.3.7)
+
+If you'de like to add support for another notification UI library, edit the `assets/notifications.js` file
+ad add a new entry into the `Notification.themes` property.
+
+Your library must be added as an object with the `show` callback field defined and used to trigger the visual
+notification, and an optional `types` translation map that will be used to translate natives types into the
+used library notification type.
+
+You will also need to add the library javascript file and optional CSS file to the `assets/themes/` directory,
+and declare the new theme in `widgets/NotificationsWidget.php`.
+
+Don't forget to send a patch afterwards!
 
 TODO
 ----
 
- * Controller : delete
+ * A widget that will display the notifications list, with a read/delete button
  * Email sending ?
  * Android Push / Apple Push integration ?
+ 
+
+LICENSE
+-------
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Mehdi Achour
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+

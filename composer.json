@@ -1,7 +1,7 @@
 {
 	"name": "machour/yii2-notifications",
-	"description": "Yii2 Notifications",
-  	"keywords": ["yii", "notification", "growl", "noty"],
+	"description": "Notifications for your Yii2 app",
+  	"keywords": ["yii", "notification", "growl", "noty", "notify"],
 	"type": "yii2-extension",
 	"support": {
 		"source": "https://github.com/machour/yii2-notifications"

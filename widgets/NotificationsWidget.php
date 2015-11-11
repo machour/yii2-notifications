@@ -7,7 +7,6 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\web\AssetBundle;
 
 /**
  * This widget can be used to regularly poll the server for new notifications
@@ -43,6 +42,11 @@ class NotificationsWidget extends Widget
      * @see http://ned.im/noty/
      */
     const THEME_NOTY = 'noty';
+    /**
+     * Use Notify
+     * @see https://notifyjs.com/
+     */
+    const THEME_NOTIFY = 'notify';
 
     /**
      * @var array additional options to be passed to the notification library.
@@ -57,19 +61,24 @@ class NotificationsWidget extends Widget
     public $theme = self::THEME_GROWL;
 
     /**
-     * @var integer the delay between pulls
+     * @var integer The time to leave the notification shown on screen
      */
     public $delay = 5000;
 
     /**
      * @var integer the XHR timeout in milliseconds
      */
-    public $timeout = 2000;
+    public $xhrTimeout = 2000;
+
+    /**
+     * @var integer The delay between pulls
+     */
+    public $pollInterval = 5000;
 
     /**
      * @var boolean Whether to show already seen notifications
      */
-    public $seen = false;
+    public $pollSeen = false;
 
     /**
      * @var array An array of jQuery selector to be updated with the current
@@ -83,6 +92,7 @@ class NotificationsWidget extends Widget
     protected static $_builtinThemes = [
         self::THEME_GROWL,
         self::THEME_NOTY,
+        self::THEME_NOTIFY,
     ];
 
     /**
@@ -117,10 +127,11 @@ class NotificationsWidget extends Widget
         $params = [
             'url' => Url::to(['/notifications/notifications/poll']),
             'theme' => Html::encode($this->theme),
-            'timeout' => Html::encode($this->timeout),
+            'xhrTimeout' => Html::encode($this->xhrTimeout),
             'delay' => Html::encode($this->delay),
             'options' => $this->clientOptions,
-            'seen' => !!$this->seen,
+            'pollSeen' => !!$this->pollSeen,
+            'pollInterval' => Html::encode($this->pollInterval),
             'counters' => $this->counters,
         ];
 

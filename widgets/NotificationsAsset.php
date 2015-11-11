@@ -40,7 +40,7 @@ class NotificationsAsset extends AssetBundle
      */
     public static function getFilename($theme, $type)
     {
-        $filename = 'ui/' . $theme . '/' . $theme . '.' . $type;
+        $filename = 'themes/' . $theme . '.' . $type;
         if (file_exists(__DIR__ . '/../assets/' . $filename)) {
             return $filename;
         }

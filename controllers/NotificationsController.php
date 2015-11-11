@@ -55,6 +55,7 @@ class NotificationsController extends Controller
             /** @var Notification $model */
             $results[] = [
                 'id' => $model->id,
+                'type' => $model->type,
                 'title' => $model->getTitle(),
                 'description' => $model->getDescription(),
                 'url' => Url::to(['notifications/rnr', 'id' => $model->id]),

@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $key_id
  * @property string $key
+ * @property string $type
  * @property boolean $seen
  * @property string $created_at
  * @property integer $user_id
