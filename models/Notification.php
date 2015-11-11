@@ -69,7 +69,7 @@ abstract class Notification extends ActiveRecord
      */
     public static function notify($key, $user_id, $key_id = null, $type = self::TYPE_DEFAULT)
     {
-        $class = static::class;
+        $class = self::className();
         return NotificationsModule::notify(new $class(), $key, $user_id, $key_id, $type);
     }
 
