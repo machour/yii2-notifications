@@ -57,8 +57,7 @@ class NotificationsController extends Controller
                 'id' => $model->id,
                 'title' => $model->getTitle(),
                 'description' => $model->getDescription(),
-                'url' => Url::to($model->getRoute()),
-                'rnr-url' => Url::to(['notifications/rnr', 'id' => $model->id]),
+                'url' => Url::to(['notifications/rnr', 'id' => $model->id]),
                 'key' => $model->key,
             ];
         }

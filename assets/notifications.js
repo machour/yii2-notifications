@@ -35,6 +35,10 @@ var Notifications = (function(options) {
     }, options);
 
 
+    /**
+     * Already displayed notifications cache
+     * @type {Array}
+     */
     this.displayed = [];
 
     /**
@@ -58,8 +62,14 @@ var Notifications = (function(options) {
                                 text        : object.title,
                                 type        : 'notification',
                                 dismissQueue: false,
+                                timeout     : 5000,
                                 layout      : 'topRight',
-                                theme       : 'defaultTheme'
+                                theme       : 'defaultTheme',
+                                callback    : {
+                                    onCloseClick: function() {
+                                        document.location = object.url;
+                                    }
+                                }
                             }, self.opts.options));
                             break;
 
