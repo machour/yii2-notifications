@@ -34,12 +34,15 @@ Before using this module, you have to run its migrations scripts:
 
 You also need to enable the module in Yii `modules` section of the configuration file:
 ```php
-retrn [
+return [
     // ...
     'modules' => [
         'notifications' => [
-            'class' => 'machour\yii2\notifications\Notifications',
-            'notificationClass' => 'backend\components\Notification',
+            'class' => 'machour\yii2\notifications\NotificationsModule',
+            // Point this to your own Notification class
+            // See the "Declaring your notifications" section below
+            'notificationClass' => 'app\models\Notification',
+            // This callable should return your logged in user Id
             'userId' => function() {
                 return \Yii::$app->user->id;
             }
