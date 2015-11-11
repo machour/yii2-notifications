@@ -2,6 +2,7 @@
 
 namespace machour\yii2\notifications\widgets;
 
+use yii\base\Exception;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -89,6 +90,9 @@ class NotificationsWidget extends Widget
      */
     public function run()
     {
+        if (!in_array($this->theme, self::$_builtinThemes)) {
+            throw new Exception("Unknown theme: " . $this->theme, 501);
+        }
         $this->registerAssets();
     }
 
@@ -99,12 +103,15 @@ class NotificationsWidget extends Widget
     {
         $view = $this->getView();
 
-        NotificationsAsset::register($view);
+        $asset = NotificationsAsset::register($view);
 
-        if (in_array($this->theme, self::$_builtinThemes)) {
-            /** @var AssetBundle $bundleClass */
-            $bundleClass = __NAMESPACE__ . '\Theme' . ucfirst($this->theme) . 'Asset';
-            $bundleClass::register($view);
+        foreach (['js' => 'registerJsFile', 'css' => 'registerCssFile'] as $type => $method) {
+            $filename = NotificationsAsset::getFilename($this->theme, $type);
+            if ($filename) {
+                $view->$method($asset->baseUrl . '/' . $filename, [
+                    'depends' => NotificationsAsset::className()
+                ]);
+            }
         }
 
         $params = [
