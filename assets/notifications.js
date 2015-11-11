@@ -50,22 +50,22 @@ var Notifications = (function(options) {
                     }
                     switch (self.opts.theme) {
                         case THEME_NOTY:
-                            noty({
+                            noty($.extend({
                                 text        : object.title,
                                 type        : 'notification',
                                 dismissQueue: false,
                                 layout      : 'topRight',
                                 theme       : 'defaultTheme'
-                            });
+                            }, self.opts.options));
                             break;
 
                         case THEME_GROWL:
                         default:
-                            $.growl.error({
+                            $.growl.error($.extend({
                                 title: object.title,
                                 message: object.description,
                                 url: object.url
-                            });
+                            }, self.opts.options));
                             break;
                     }
                     self.displayed.push(object.id);

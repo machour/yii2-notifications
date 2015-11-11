@@ -206,21 +206,26 @@ This widget should be used in your main layout file as follows:
 use machour\yii2\notifications\widgets\NotificationsWidget;
 
 NotificationsWidget::widget([
-    'theme' => NotificationsWidget::THEME_NOTY
+    'theme' => NotificationsWidget::THEME_GROWL,
+    'clientOptions' => [
+        'size' => 'large',
+    ],
+]);
+
 ]);
 ```
 
-| Parameter      | Description                             | Default     |
-| -------------- | --------------------------------------- | -----------:|
-| theme          | Can be either THEME_NOTY or THEME_GROWL | THEME_GROWL |
-| delay          | The delay in milliseconds between polls | 5000        |
-| timeout        | The XHR request timeout in milliseconds | 2000        |
+| Parameter      | Description                                                                 | Default     |
+| -------------- | --------------------------------------------------------------------------- | -----------:|
+| theme          | Can be either THEME_NOTY or THEME_GROWL                                     | THEME_GROWL |
+| clientOptions  | An array of options to be passed to the underlying UI notifications library | []          |
+| delay          | The delay in milliseconds between polls                                     | 5000        |
+| timeout        | The XHR request timeout in milliseconds                                     | 2000        |
 
 
 TODO
 ----
 
- * Add $location for NotificationsWidget();
  * Controller : delete
  * Email sending ?
  * Android Push / Apple Push integration ?

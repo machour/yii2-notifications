@@ -4,17 +4,48 @@ namespace machour\yii2\notifications\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\AssetBundle;
 
+/**
+ * This widget can be used to regularly poll the server for new notifications
+ * and trigger them visually using either jQuery Growl, or Noty.
+ *
+ * This widget should be used in your main layout file as follows:
+ *
+ * <code>
+ * use machour\yii2\notifications\widgets\NotificationsWidget;
+ *
+ * NotificationsWidget::widget([
+ * 'theme' => NotificationsWidget::THEME_NOTY
+ * ]);
+ * </code>
+ *
+ * @package machour\yii2\notifications\widgets
+ */
 class NotificationsWidget extends Widget
 {
-
+    /**
+     * Use jQuery Growl
+     * @see http://ksylvest.github.io/jquery-growl/
+     */
     const THEME_GROWL = 'growl';
+    /**
+     * Use Noty
+     * @see http://ned.im/noty/
+     */
     const THEME_NOTY = 'noty';
 
     /**
-     * @var string the theme name to be used for styling the Select2
+     * @var array additional options to be passed to the notification library.
+     * Please refer to the plugin project page for available options.
+     */
+    public $clientOptions = [];
+
+    /**
+     * @var string the library name to be used for notifications
+     * One of the THEME_XXX constants
      */
     public $theme = self::THEME_GROWL;
 
@@ -58,12 +89,16 @@ class NotificationsWidget extends Widget
             $bundleClass = __NAMESPACE__ . '\Theme' . ucfirst($this->theme) . 'Asset';
             $bundleClass::register($view);
         }
-        $js = 'Notifications({' .
-            'url:"' . Url::to(['/notifications/notifications/poll']) . '",' .
-            'theme:"' . Html::encode($this->theme) . '",' .
-            'timeout:"' . Html::encode($this->timeout) . '",' .
-            'delay:"' . $this->delay . '"' .
-        '});';
+
+        $params = [
+            'url' => Url::to(['/notifications/notifications/poll']),
+            'theme' => Html::encode($this->theme),
+            'timeout' => Html::encode($this->timeout),
+            'delay' => Html::encode($this->delay),
+            'options' => $this->clientOptions,
+        ];
+
+        $js = 'Notifications(' . Json::encode($params) . ');';
 
         $view->registerJs($js);
     }
