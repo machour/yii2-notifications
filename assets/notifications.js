@@ -41,7 +41,7 @@ var Notifications = (function(options) {
          */
         notifit: {
             types: {
-                default: 'info'
+                'default': 'info'
             },
             show: function (object) {
                 notif($.extend({
@@ -64,7 +64,7 @@ var Notifications = (function(options) {
         notify: {
             types: {
                 warning: 'warn',
-                default: 'info'
+                'default': 'info'
             },
             show: function (object) {
                 $.notify(object.title, getType(object.type), $.extend({
@@ -79,7 +79,7 @@ var Notifications = (function(options) {
          */
         noty: {
             types: {
-                default: 'information'
+                'default': 'information'
             },
             show: function (object) {
                 noty($.extend({
@@ -105,7 +105,7 @@ var Notifications = (function(options) {
         pnotify: {
             types: {
                 warning: 'notice',
-                default: 'info'
+                'default': 'info'
             },
             show: function (object) {
                 new PNotify($.extend({
@@ -123,7 +123,7 @@ var Notifications = (function(options) {
          */
         toastr: {
             types: {
-                default: 'info'
+                'default': 'info'
             },
             show: function (object) {
                 toastr[getType(object.type)](object.description, object.title, $.extend({
@@ -203,9 +203,11 @@ var Notifications = (function(options) {
                 });
 
                 // Update all counters
-                for (var i = 0; i < self.opts.counters.length; i++) {
-                    if ($(self.opts.counters[i]).text() != data.length) {
-                        $(self.opts.counters[i]).text(data.length);
+                if (self.opts.counters) {
+                    for (var i = 0; i < self.opts.counters.length; i++) {
+                        if ($(self.opts.counters[i]).text() != data.length) {
+                            $(self.opts.counters[i]).text(data.length);
+                        }
                     }
                 }
             },
