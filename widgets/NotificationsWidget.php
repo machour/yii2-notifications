@@ -2,11 +2,13 @@
 
 namespace machour\yii2\notifications\widgets;
 
+use Yii;
 use yii\base\Exception;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /**
  * This widget can be used to regularly poll the server for new notifications
@@ -73,7 +75,7 @@ class NotificationsWidget extends Widget
      * @var string the library name to be used for notifications
      * One of the THEME_XXX constants
      */
-    public $theme = self::THEME_GROWL;
+    public $theme = null;
 
     /**
      * @var integer The time to leave the notification shown on screen
@@ -102,6 +104,28 @@ class NotificationsWidget extends Widget
     public $counters = [];
 
     /**
+     * @var string The locale to be used for jQuery timeago. Defaults to the
+     *             current Yii language
+     */
+    public $timeAgoLocale;
+
+    /**
+     * @var string The jQuery selector in which the notifications list should
+     *             be rendered
+     */
+    public $listSelector = null;
+
+    /**
+     * @var string The list item HTML template
+     */
+    public $listItemTemplate = null;
+
+    /**
+     * @var string The list item before render callback
+     */
+    public $listItemBeforeRender = null;
+
+    /**
      * @var array List of built in themes
      */
     protected static $_builtinThemes = [
@@ -118,8 +142,8 @@ class NotificationsWidget extends Widget
      */
     public function run()
     {
-        if (!in_array($this->theme, self::$_builtinThemes)) {
-            throw new Exception("Unknown theme: " . $this->theme, 501);
+        if (!isset($this->timeAgoLocale)) {
+            $this->timeAgoLocale = Yii::$app->language;
         }
         $this->registerAssets();
     }
@@ -133,18 +157,30 @@ class NotificationsWidget extends Widget
 
         $asset = NotificationsAsset::register($view);
 
-        foreach (['js' => 'registerJsFile', 'css' => 'registerCssFile'] as $type => $method) {
-            $filename = NotificationsAsset::getFilename($this->theme, $type);
-            if ($filename) {
-                $view->$method($asset->baseUrl . '/' . $filename, [
-                    'depends' => NotificationsAsset::className()
-                ]);
+        // Register the theme assets
+        if (!is_null($this->theme)) {
+            if (!in_array($this->theme, self::$_builtinThemes)) {
+                throw new Exception("Unknown theme: " . $this->theme, 501);
             }
+            foreach (['js' => 'registerJsFile', 'css' => 'registerCssFile'] as $type => $method) {
+                $filename = NotificationsAsset::getFilename($this->theme, $type);
+                if ($filename) {
+                    $view->$method($asset->baseUrl . '/' . $filename, [
+                        'depends' => NotificationsAsset::className()
+                    ]);
+                }
+            }
+        }
+
+        // Register timeago i18n file
+        if ($filename = NotificationsAsset::getTimeAgoI18n($this->timeAgoLocale)) {
+            $view->registerJsFile($asset->baseUrl . '/' . $filename, [
+                'depends' => NotificationsAsset::className()
+            ]);
         }
 
         $params = [
             'url' => Url::to(['/notifications/notifications/poll']),
-            'theme' => Html::encode($this->theme),
             'xhrTimeout' => Html::encode($this->xhrTimeout),
             'delay' => Html::encode($this->delay),
             'options' => $this->clientOptions,
@@ -152,6 +188,22 @@ class NotificationsWidget extends Widget
             'pollInterval' => Html::encode($this->pollInterval),
             'counters' => $this->counters,
         ];
+
+        if ($this->theme) {
+            $params['theme'] = Html::encode($this->theme);
+        }
+
+        if ($this->listSelector) {
+            $params['seenUrl'] = Url::to(['/notifications/notifications/read']);
+            $params['deleteUrl'] = Url::to(['/notifications/notifications/delete']);
+            $params['listSelector'] = $this->listSelector;
+            if ($this->listItemTemplate) {
+                $params['listItemTemplate'] = $this->listItemTemplate;
+            }
+            if ($this->listItemBeforeRender instanceof JsExpression) {
+                $params['listItemBeforeRender'] = $this->listItemBeforeRender;
+            }
+        }
 
         $js = 'Notifications(' . Json::encode($params) . ');';
 

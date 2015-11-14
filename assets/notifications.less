@@ -1,0 +1,43 @@
+.notification {
+  background: #fefefe;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #b5b5b5;
+
+  &.notification-danger {
+    background: #b995a9;
+  }
+  &.notification-warning {
+    background: #fcffcd;
+  }
+  &.notification-success {
+    background: #00ca6d;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .description {
+    display: none;
+  }
+
+  .timeago {
+    color: #555;
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  .actions {
+    .fa {
+      color: #aaa;
+      display: block;
+      font-size: 10px;
+      margin: 4px 0;
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+}

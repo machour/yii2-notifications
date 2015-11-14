@@ -27,6 +27,7 @@ var Notifications = (function(options) {
             },
             show: function (object) {
                 $.growl($.extend({
+                    duration: self.opts.delay,
                     title: object.title,
                     message: object.description,
                     url: object.url,
@@ -144,20 +145,92 @@ var Notifications = (function(options) {
      * @type {Object}
      */
     this.opts = $.extend({
+        seenUrl: '', // Overwritten by widget
+        deleteUrl: '', // Overwritten by widget
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
         delay: 5000,
-        theme: 'growl',
-        counters: []
+        theme: null,
+        counters: [],
+        listSelector: null,
+        listItemTemplate:
+            '<div class="row">' +
+                '<div class="col-xs-10">' +
+                    '<div class="title">{title}</div>' +
+                    '<div class="description">{description}</div>' +
+                    '<div class="timeago">{timeago}</div>' +
+                '</div>' +
+                '<div class="col-xs-2">' +
+                    '<div class="actions pull-right">{seen}{delete}</div>' +
+                '</div>' +
+            '</div>',
+        listItemBeforeRender: function (elem) {
+            return elem;
+        }
     }, options);
-
 
     /**
      * Already displayed notifications cache
      * @type {Array}
      */
     this.displayed = [];
+
+    /**
+     * Renders a notification row
+     *
+     * @param object The notification instance
+     * @returns {jQuery|HTMLElement|*}
+     */
+    this.renderRow = function (object) {
+        var keywords = ['id', 'title', 'description', 'url', 'type'];
+        var ret, html = self.opts.listItemTemplate;
+
+        html = '<div class="notification notification-{type} ' +
+            (object.seen ? 'notification-seen' : 'notification-unseen') +
+            '" data-route="{url}" data-id="{id}">' +
+                html +
+                '</div>';
+
+        for (var i = 0; i < keywords.length; i++) {
+            html = html.replace(new RegExp('{' + keywords[i] + '}', 'g'), object[keywords[i]]);
+        }
+
+        html = html.replace(/\{seen}/g, '<span class="notification-seen fa fa-check"></span>');
+        html = html.replace(/\{delete}/g, '<span class="notification-delete fa fa-close"></span>');
+        html = html.replace(/\{timeago}/g, '<span class="notification-timeago"></span>');
+        ret = $(html);
+        ret.find('.notification-seen').click(function() {
+            self.markSeen($(this).parents('.notification').data('id'));
+            return false;
+        });
+        ret.find('.notification-timeago').text($.timeago(object['date']));
+        ret.find('.notification-delete').click(function() {
+            self.delete($(this).parents('.notification').data('id'));
+            return false;
+        });
+        return ret;
+    };
+
+    /**
+     * Marks a notification as seen
+     * @param {int} id The notification id
+     */
+    this.markSeen = function (id) {
+        $.get(this.opts.seenUrl, {id: id}, function () {
+
+        });
+    };
+
+    /**
+     * Deletes a notification
+     * @param {int} id The notification id
+     */
+    this.delete = function (id) {
+        $.get(this.opts.deleteUrl, {id: id}, function () {
+            $('.notification[data-id=' + id + ']').hide();
+        });
+    };
 
     /**
      * Translates a native type to a theme type
@@ -190,15 +263,28 @@ var Notifications = (function(options) {
             },
             success: function(data) {
                 var engine = self.themes[self.opts.theme];
+                var elem;
                 $.each(data, function (index, object) {
                     if (self.displayed.indexOf(object.id) !== -1) {
                         return;
                     }
-                    if (typeof engine !== "undefined") {
-                        engine.show(object);
-                        self.displayed.push(object.id);
-                    } else {
-                        console.warn("Unknown engine: " + self.opts.theme);
+
+                    self.displayed.push(object.id);
+
+                    if (self.opts.theme !== null) {
+                        if (typeof engine !== "undefined") {
+                            engine.show(object);
+                        } else {
+                            console.warn("Unknown engine: " + self.opts.theme);
+                        }
+                    }
+
+                    if (self.opts.listSelector !== null) {
+                        elem = self.renderRow(object);
+                        elem = self.opts.listItemBeforeRender(elem);
+                        elem.click(function() {
+                            document.location = $(this).data('route');
+                        }).appendTo(self.opts.listSelector);
                     }
                 });
 

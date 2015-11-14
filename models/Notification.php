@@ -20,11 +20,26 @@ use yii\db\ActiveRecord;
 abstract class Notification extends ActiveRecord
 {
 
+    /**
+     * Default notification
+     */
     const TYPE_DEFAULT = 'default';
+    /**
+     * Error notification
+     */
     const TYPE_ERROR   = 'error';
+    /**
+     * Warning notification
+     */
     const TYPE_WARNING = 'warning';
+    /**
+     * Success notification type
+     */
     const TYPE_SUCCESS = 'success';
 
+    /**
+     * @var array List of all enabled notification types
+     */
     public static $types = [
         self::TYPE_WARNING,
         self::TYPE_DEFAULT,
@@ -32,10 +47,25 @@ abstract class Notification extends ActiveRecord
         self::TYPE_SUCCESS,
     ];
 
+    /**
+     * Gets the notification title
+     *
+     * @return string
+     */
     abstract public function getTitle();
 
+    /**
+     * Gets the notification description
+     *
+     * @return string
+     */
     abstract public function getDescription();
 
+    /**
+     * Gets the notification route
+     *
+     * @return string
+     */
     abstract public function getRoute();
 
     /**

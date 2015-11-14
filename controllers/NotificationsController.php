@@ -3,7 +3,6 @@
 namespace machour\yii2\notifications\controllers;
 
 use machour\yii2\notifications\models\Notification;
-use machour\yii2\notifications\NotificationsModule;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -60,6 +59,7 @@ class NotificationsController extends Controller
                 'description' => $model->getDescription(),
                 'url' => Url::to(['notifications/rnr', 'id' => $model->id]),
                 'key' => $model->key,
+                'date' => $model->created_at
             ];
         }
         return $results;
@@ -89,6 +89,39 @@ class NotificationsController extends Controller
      */
     public function actionRead($id)
     {
+        $notification = $this->getNotification($id);
+
+        $notification->seen = 1;
+        $notification->save();
+
+        return $notification;
+    }
+
+    /**
+     * Deletes a notification
+     *
+     * @param int $id The notification id
+     * @return int|false Returns 1 if the notification was deleted, FALSE otherwise
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
+     */
+    public function actionDelete($id)
+    {
+        $notification = $this->getNotification($id);
+        return $notification->delete();
+    }
+
+
+    /**
+     * Gets a notification by id
+     *
+     * @param int $id The notification id
+     * @return Notification
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
+     */
+    private function getNotification($id)
+    {
         /** @var Notification $notification */
         $class = $this->notificationClass;
         $notification = $class::findOne($id);
@@ -99,9 +132,6 @@ class NotificationsController extends Controller
         if ($notification->user_id != $this->user_id) {
             throw new HttpException(500, "Not your notification");
         }
-
-        $notification->seen = 1;
-        $notification->save();
 
         return $notification;
     }

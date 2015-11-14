@@ -1,0 +1,35 @@
+.notification {
+  background: #fefefe;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #b5b5b5;
+}
+.notification.notification-danger {
+  background: #b995a9;
+}
+.notification.notification-warning {
+  background: #fcffcd;
+}
+.notification.notification-success {
+  background: #00ca6d;
+}
+.notification .title {
+  font-weight: bold;
+}
+.notification .description {
+  display: none;
+}
+.notification .timeago {
+  color: #555;
+  font-style: italic;
+  font-size: 12px;
+}
+.notification .actions .fa {
+  color: #aaa;
+  display: block;
+  font-size: 10px;
+  margin: 4px 0;
+}
+.notification .actions .fa:hover {
+  color: #333;
+}
