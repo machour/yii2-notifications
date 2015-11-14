@@ -99,7 +99,7 @@ class NotificationsWidget extends Widget
      * @var array An array of jQuery selector to be updated with the current
      *            notifications count
      */
-    public $counters;
+    public $counters = [];
 
     /**
      * @var array List of built in themes
@@ -120,9 +120,6 @@ class NotificationsWidget extends Widget
     {
         if (!in_array($this->theme, self::$_builtinThemes)) {
             throw new Exception("Unknown theme: " . $this->theme, 501);
-        }
-        if (!is_array($this->counters)) {
-            $this->counters = [$this->counters];
         }
         $this->registerAssets();
     }
