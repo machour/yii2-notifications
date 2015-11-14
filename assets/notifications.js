@@ -203,11 +203,9 @@ var Notifications = (function(options) {
                 });
 
                 // Update all counters
-                if (self.opts.counters) {
-                    for (var i = 0; i < self.opts.counters.length; i++) {
-                        if ($(self.opts.counters[i]).text() != data.length) {
-                            $(self.opts.counters[i]).text(data.length);
-                        }
+                for (var i = 0; i < self.opts.counters.length; i++) {
+                    if ($(self.opts.counters[i]).text() != data.length) {
+                        $(self.opts.counters[i]).text(data.length);
                     }
                 }
             },

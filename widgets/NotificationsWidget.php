@@ -121,6 +121,9 @@ class NotificationsWidget extends Widget
         if (!in_array($this->theme, self::$_builtinThemes)) {
             throw new Exception("Unknown theme: " . $this->theme, 501);
         }
+        if (!is_array($this->counters)) {
+            $this->counters = [$this->counters];
+        }
         $this->registerAssets();
     }
 
