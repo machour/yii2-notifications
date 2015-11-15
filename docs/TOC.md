@@ -3,4 +3,3 @@
 * [Configuration](Configuration.md)
 * [Usage](Usage.md)
 * [Todo](Todo.md)
-* [License](License.md)
