@@ -243,12 +243,13 @@ var Notifications = (function(options) {
         var types = this.themes[this.opts.theme].types;
         var translation;
 
-        if (typeof types !== "undefined" ||
-            (translation = types[type] && typeof translation === "undefined")) {
-            return type;
+        if (typeof types !== "undefined") {
+            translation = types[type];
+            if (typeof translation !== "undefined") {
+                return translation;
+            }
         }
-
-        return translation;
+        return type;
     }
 
     /**
