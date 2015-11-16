@@ -20,7 +20,7 @@ class NotificationsAsset extends AssetBundle
     /**
      * @var string The assets directory
      */
-    public static $assetsDirectory = __DIR__ . '/../assets/';
+    public static $assetsDirectory = '@vendor/machour/yii2-notifications/assets/';
 
     /**
      * @var array The widget js files
@@ -60,7 +60,7 @@ class NotificationsAsset extends AssetBundle
     public static function getFilename($theme, $type)
     {
         $filename = 'themes/' . $theme . '.' . $type;
-        if (file_exists(self::$assetsDirectory . $filename)) {
+        if (file_exists(Yii::getAlias(self::$assetsDirectory) . $filename)) {
             return $filename;
         }
         return false;
@@ -75,7 +75,7 @@ class NotificationsAsset extends AssetBundle
     public static function getTimeAgoI18n($locale)
     {
         $filename = 'locales/jquery.timeago.' . $locale . '.js';
-        if (file_exists(self::$assetsDirectory . $filename)) {
+        if (file_exists(Yii::getAlias(self::$assetsDirectory) . $filename)) {
             return $filename;
         }
         return false;
