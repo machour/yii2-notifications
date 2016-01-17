@@ -61,8 +61,11 @@ NotificationsWidget::widget([
     <ul class="dropdown-menu">
         <li class="header">You have <span class="notifications-header-count">0</span> notifications</li>
         <li>
-            <div id="notifications"></div>
+            <ul class="menu">
+                <div id="notifications"></div>
+            </ul>
         </li>
+        <li class="footer"><a href="#">View all</a></li>
     </ul>
 </li>
 ```
