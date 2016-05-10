@@ -47,8 +47,8 @@ class NotificationsController extends Controller
             ->where([
                 'user_id' => $this->user_id,
                 'seen' => $seen
-            ])->
-            orderBy('created_at DESC')
+            ])
+            ->orderBy('created_at DESC')
             ->all();
 
         $results = [];
