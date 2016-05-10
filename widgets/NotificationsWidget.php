@@ -196,6 +196,7 @@ class NotificationsWidget extends Widget
         if ($this->listSelector) {
             $params['seenUrl'] = Url::to(['/notifications/notifications/read']);
             $params['deleteUrl'] = Url::to(['/notifications/notifications/delete']);
+            $params['flashUrl'] = Url::to(['/notifications/notifications/flash']);
             $params['listSelector'] = $this->listSelector;
             if ($this->listItemTemplate) {
                 $params['listItemTemplate'] = $this->listItemTemplate;
