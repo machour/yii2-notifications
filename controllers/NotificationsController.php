@@ -43,10 +43,13 @@ class NotificationsController extends Controller
     {
         /** @var Notification $class */
         $class = $this->notificationClass;
-        $models = $class::find()->where([
-            'user_id' => $this->user_id,
-            'seen' => $seen
-        ])->orderBy('created_at DESC')->all();
+        $models = $class::find()
+            ->where([
+                'user_id' => $this->user_id,
+                'seen' => $seen
+            ])->
+            orderBy('created_at DESC')
+            ->all();
 
         $results = [];
 
