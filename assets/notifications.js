@@ -278,11 +278,11 @@ var Notifications = (function(options) {
                     }
 
                     self.displayed.push(object.id);
-                    self.flash(object.id);
-                    console.log(object.flashed);
+
                     if (self.opts.theme !== null && object.flashed === 0) {
                         if (typeof engine !== "undefined") {
                             engine.show(object);
+                            self.flash(object.id);
                         } else {
                             console.warn("Unknown engine: " + self.opts.theme);
                         }
