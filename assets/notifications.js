@@ -147,6 +147,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
+        flashUrl: '',
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
@@ -232,6 +233,12 @@ var Notifications = (function(options) {
         });
     };
 
+    this.flash = function (id) {
+        $.get(this.opts.flashUrl, {id: id}, function () {
+
+        });
+    };
+
     /**
      * Translates a native type to a theme type
      *
@@ -271,8 +278,9 @@ var Notifications = (function(options) {
                     }
 
                     self.displayed.push(object.id);
-
-                    if (self.opts.theme !== null) {
+                    self.flash(object.id);
+                    console.log(object.flashed);
+                    if (self.opts.theme !== null && object.flashed === 0) {
                         if (typeof engine !== "undefined") {
                             engine.show(object);
                         } else {
