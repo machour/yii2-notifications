@@ -44,10 +44,8 @@ class NotificationsController extends Controller
         /** @var Notification $class */
         $class = $this->notificationClass;
         $models = $class::find()
-            ->where([
-                'user_id' => $this->user_id,
-                'seen' => $seen
-            ])
+            ->where(['user_id' => $this->user_id])
+            ->andWhere(['or', 'seen='.$seen, 'flashed=0'])
             ->orderBy('created_at DESC')
             ->all();
 
@@ -62,6 +60,7 @@ class NotificationsController extends Controller
                 'description' => $model->getDescription(),
                 'url' => Url::to(['notifications/rnr', 'id' => $model->id]),
                 'key' => $model->key,
+                'flashed' => $model->flashed,
                 'date' => $model->created_at
             ];
         }
@@ -112,6 +111,16 @@ class NotificationsController extends Controller
     {
         $notification = $this->getNotification($id);
         return $notification->delete();
+    }
+
+    public function actionFlash($id)
+    {
+        $notification = $this->getNotification($id);
+
+        $notification->flashed = 1;
+        $notification->save();
+
+        return $notification;
     }
 
 
