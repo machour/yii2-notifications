@@ -203,6 +203,8 @@ var Notifications = (function(options) {
         ret = $(html);
         ret.find('.notification-seen').click(function() {
             self.markSeen($(this).parents('.notification').data('id'));
+            $(this).parents('.notification').hide();
+            $('.notifications-icon-count, .notifications-header-count').text(parseInt($('.notifications-icon-count').html())-1);
             return false;
         });
         ret.find('.notification-timeago').text($.timeago(object['date']));
@@ -303,6 +305,7 @@ var Notifications = (function(options) {
                         $(self.opts.counters[i]).text(data.length);
                     }
                 }
+
             },
             dataType: "json",
             complete: setTimeout(function() {
