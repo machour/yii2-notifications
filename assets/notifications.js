@@ -37,6 +37,22 @@ var Notifications = (function(options) {
         },
 
         /**
+         * Notie
+         * @see https://jaredreich.com/projects/notie/
+         */
+        notie: {
+            types: {
+                'default': 4,
+                error: 3,
+                warning: 2,
+                success: 1
+            },
+            show: function (object) {
+                notie.alert(getType(object.type), object.description, self.opts.delay / 999);
+            }
+        },
+
+        /**
          * NotifIt!
          * @see http://naoxink.hol.es/notifIt/
          */
