@@ -13,16 +13,17 @@
 		}
 	],
 	"require": {
-		"yiisoft/yii2": "*"
+		"yiisoft/yii2": "*",
+		"rmrevin/yii2-fontawesome": "~2.15"
 	},
-    "autoload": {
-        "psr-4": {
-            "machour\\yii2\\notifications\\": ""
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    }
+	"autoload": {
+		"psr-4": {
+			"machour\\yii2\\notifications\\": ""
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	}
 }
