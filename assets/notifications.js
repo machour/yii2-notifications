@@ -147,7 +147,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
-        flashUrl: '',
+        flashUrl: '', // Overwritten by widget
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
