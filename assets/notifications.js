@@ -147,7 +147,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
-        flashUrl: '', // Overwritten by widget
+        flashUrl: '',
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
@@ -204,7 +204,14 @@ var Notifications = (function(options) {
         ret.find('.notification-seen').click(function() {
             self.markSeen($(this).parents('.notification').data('id'));
             $(this).parents('.notification').hide();
-            $('.notifications-icon-count, .notifications-header-count').text(parseInt($('.notifications-icon-count').html())-1);
+
+            // Update all counters
+            for (var i = 0; i < self.opts.counters.length; i++) {
+                if ($(self.opts.counters[i]).text() != parseInt($('.notifications-icon-count').html())-1) {
+                    $(self.opts.counters[i]).text(parseInt($('.notifications-icon-count').html())-1);
+                }
+            }
+
             return false;
         });
         ret.find('.notification-timeago').text($.timeago(object['date']));
