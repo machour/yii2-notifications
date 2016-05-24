@@ -236,9 +236,7 @@ var Notifications = (function(options) {
     };
 
     this.flash = function (id) {
-        $.get(this.opts.flashUrl, {id: id}, function () {
-
-        });
+        $.get(this.opts.flashUrl, {id: id});
     };
 
     /**
