@@ -147,7 +147,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
-        flashUrl: '', // Overwritten by widget
+        flashUrl: '',
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
@@ -207,8 +207,8 @@ var Notifications = (function(options) {
 
             // Update all counters
             for (var i = 0; i < self.opts.counters.length; i++) {
-                if ($(self.opts.counters[i]).text() != parseInt($('.notifications-icon-count').html())-1) {
-                    $(self.opts.counters[i]).text(parseInt($('.notifications-icon-count').html())-1);
+                if ($(self.opts.counters[i]).text() != parseInt($(self.opts.counters[i]).html())-1) {
+                    $(self.opts.counters[i]).text(parseInt($(self.opts.counters[i]).html())-1);
                 }
             }
 
