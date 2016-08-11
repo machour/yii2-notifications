@@ -4,9 +4,11 @@ use yii\db\Migration;
 
 class m151008_162401_create_notification_table extends Migration
 {
+    const TABLE_NAME = '{{%notification}}';
+    
     public function up()
     {
-        $this->createTable('notification', [
+        $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
             'key' => $this->string()->notNull(),
             'key_id' => $this->integer(),
@@ -19,6 +21,6 @@ class m151008_162401_create_notification_table extends Migration
 
     public function down()
     {
-        $this->dropTable('notification');
+        $this->dropTable(self::TABLE_NAME);
     }
 }
