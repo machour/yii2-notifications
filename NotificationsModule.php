@@ -22,7 +22,7 @@ class NotificationsModule extends Module
     /**
     * @var boolean Define wether notification can be duplicated (same user_id, key, and key_id) or not.
     */
-    public static $allowDuplicateNotifications = false;
+    public $allowDuplicateNotifications = false;
 
     /**
      * @var callable|integer The current user id
@@ -63,7 +63,7 @@ class NotificationsModule extends Module
 
         /** @var Notification $instance */
         $instance = $notification::findOne(['user_id' => $user_id, 'key' => $key, 'key_id' => (string)$key_id]);
-        if (!$instance || self::$allowDuplicateNotifications) {
+        if (!$instance || self->allowDuplicateNotifications) {
             $instance = new $notification([
                 'key' => $key,
                 'type' => $type,
