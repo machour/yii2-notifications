@@ -5,7 +5,7 @@ use yii\db\Migration;
 class m151008_162401_create_notification_table extends Migration
 {
     const TABLE_NAME = '{{%notification}}';
-    
+
     public function up()
     {
         $this->createTable(self::TABLE_NAME, [
