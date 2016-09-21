@@ -13,6 +13,6 @@ class m160921_171124_alter_notification_table extends Migration
 
     public function down()
     {
-        $this->dropTable(self::TABLE_NAME);
+        $this->alterColumn(self::TABLE_NAME, 'key_id', 'integer');
     }
 }
