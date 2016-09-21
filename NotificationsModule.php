@@ -25,11 +25,6 @@ class NotificationsModule extends Module
     public $userId;
 
     /**
-     * @var boolean Define wether notification can be duplicated (same user_id, key, and key_id) or not.
-     */
-    public $allowDuplicateNotifications = false;
-
-    /**
      * @inheritdoc
      */
     public function init() {
@@ -63,7 +58,7 @@ class NotificationsModule extends Module
 
         /** @var Notification $instance */
         $instance = $notification::findOne(['user_id' => $user_id, 'key' => $key, 'key_id' => (string)$key_id]);
-        if (!$instance || $this->allowDuplicateNotifications) {
+        if (!$instance) {
             $instance = new $notification([
                 'key' => $key,
                 'type' => $type,
