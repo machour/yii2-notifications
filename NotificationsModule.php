@@ -63,7 +63,7 @@ class NotificationsModule extends Module
 
         /** @var Notification $instance */
         $instance = $notification::findOne(['user_id' => $user_id, 'key' => $key, 'key_id' => (string)$key_id]);
-        if (!$instance || $this->allowDuplicateNotifications)) {
+        if (!$instance || $this->allowDuplicateNotifications) {
             $instance = new $notification([
                 'key' => $key,
                 'type' => $type,
