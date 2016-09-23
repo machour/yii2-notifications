@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "notification".
  *
  * @property integer $id
- * @property integer $key_id
+ * @property string $key_id
  * @property string $key
  * @property string $type
  * @property boolean $seen
@@ -84,7 +84,8 @@ abstract class Notification extends ActiveRecord
         return [
             [['type', 'user_id', 'key', 'created_at'], 'required'],
             [['id', 'key_id', 'created_at'], 'safe'],
-            [['key_id', 'user_id'], 'integer'],
+            [['user_id'], 'integer'],
+            [['key_id'], 'string'],
         ];
     }
 
@@ -93,7 +94,7 @@ abstract class Notification extends ActiveRecord
      *
      * @param string $key
      * @param integer $user_id The user id that will get the notification
-     * @param integer $key_id The foreign instance id
+     * @param string $key_id The foreign instance id
      * @param string $type
      * @return bool Returns TRUE on success, FALSE on failure
      * @throws \Exception
@@ -109,7 +110,7 @@ abstract class Notification extends ActiveRecord
      *
      * @param string $key
      * @param integer $user_id The user id that will get the notification
-     * @param integer $key_id The notification key id
+     * @param string $key_id The notification key id
      * @return bool Returns TRUE on success, FALSE on failure
      */
     public static function warning($key, $user_id, $key_id = null)
@@ -123,7 +124,7 @@ abstract class Notification extends ActiveRecord
      *
      * @param string $key
      * @param integer $user_id The user id that will get the notification
-     * @param integer $key_id The notification key id
+     * @param string $key_id The notification key id
      * @return bool Returns TRUE on success, FALSE on failure
      */
     public static function error($key, $user_id, $key_id = null)
@@ -137,7 +138,7 @@ abstract class Notification extends ActiveRecord
      *
      * @param string $key
      * @param integer $user_id The user id that will get the notification
-     * @param integer $key_id The notification key id
+     * @param string $key_id The notification key id
      * @return bool Returns TRUE on success, FALSE on failure
      */
     public static function success($key, $user_id, $key_id = null)
@@ -146,4 +147,3 @@ abstract class Notification extends ActiveRecord
     }
 
 }
-
