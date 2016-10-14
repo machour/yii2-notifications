@@ -17,6 +17,9 @@ return [
             // Point this to your own Notification class
             // See the "Declaring your notifications" section below
             'notificationClass' => 'app\models\Notification',
+            // Allow to have notification with same (user_id, key, key_id)
+            // Default to FALSE
+            'allowDuplicate' => false,
             // This callable should return your logged in user Id
             'userId' => function() {
                 return \Yii::$app->user->id;
@@ -76,7 +79,7 @@ class Notification extends BaseNotification
 
             case self::KEY_NEW_MESSAGE:
                 return Yii::t('app', 'You got a new message');
-                
+
             case self::KEY_NO_DISK_SPACE:
                 return Yii::t('app', 'No disk space left');
         }

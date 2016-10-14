@@ -3,3 +3,4 @@
 * [Configuration](Configuration.md)
 * [Usage](Usage.md)
 * [Todo](Todo.md)
+* [Contributors](Contributors.md)
