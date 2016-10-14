@@ -24,13 +24,13 @@ notifications.
 The widget will then trigger visual notifications using the library selected with the `theme` option.
 Here's an example using `NotificationsWidget::THEME_GROWL`:
 
-![Growl notification](docs/growl.png)
+![Growl notification](https://raw.githubusercontent.com/machour/yii2-notifications/master/docs/growl.png)
 
 The widget can also maintain a HTML list of notifications in your UI as well as updating one or more
 notifications counters, if the `listSelector` option is defined.
 Here's an example of a notification menu in the application header: 
 
-![Notifications list](docs/list.png)
+![Notifications list](https://raw.githubusercontent.com/machour/yii2-notifications/d4450ab164d62f5504c3ec31cfba50b95cf9a3d8/docs/list.png)
 
 When clicked, a notification will be marked as seen, and the user will be redirected to the notification
 route.
