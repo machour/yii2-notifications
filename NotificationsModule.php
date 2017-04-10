@@ -68,6 +68,7 @@ class NotificationsModule extends Module
                 'key' => $key,
                 'type' => $type,
                 'seen' => 0,
+                'flashed' => 0,
                 'user_id' => $user_id,
                 'key_id' => (string)$key_id,
                 'created_at' => new Expression('NOW()'),
