@@ -2,6 +2,7 @@
 
 namespace machour\yii2\notifications;
 
+use Yii;
 use Exception;
 use machour\yii2\notifications\models\Notification;
 use yii\base\Module;
@@ -29,7 +30,12 @@ class NotificationsModule extends Module
      */
     public $userId;
 
-    /**
+	/**
+	 * @var callable|integer The current user id
+	 */
+	public $expirationTime = 0;
+
+	/**
      * @inheritdoc
      */
     public function init() {
@@ -37,6 +43,10 @@ class NotificationsModule extends Module
             $this->userId = call_user_func($this->userId);
         }
         parent::init();
+
+	    if (Yii::$app instanceof \yii\console\Application) {
+		    $this->controllerNamespace = 'machour\yii2\notifications\commands';
+	    }
     }
 
     /**
