@@ -163,6 +163,7 @@ var Notifications = (function(options) {
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
+        flashUrl: '',
         pollInterval: 5000,
         pollSeen: false,
         xhrTimeout: 2000,
@@ -218,6 +219,15 @@ var Notifications = (function(options) {
         ret = $(html);
         ret.find('.notification-seen').click(function() {
             self.markSeen($(this).parents('.notification').data('id'));
+            $(this).parents('.notification').hide();
+
+            // Update all counters
+            for (var i = 0; i < self.opts.counters.length; i++) {
+                if ($(self.opts.counters[i]).text() != parseInt($(self.opts.counters[i]).html())-1) {
+                    $(self.opts.counters[i]).text(parseInt($(self.opts.counters[i]).html())-1);
+                }
+            }
+
             return false;
         });
         ret.find('.notification-timeago').text($.timeago(object['date']));
@@ -246,6 +256,10 @@ var Notifications = (function(options) {
         $.get(this.opts.deleteUrl, {id: id}, function () {
             $('.notification[data-id=' + id + ']').hide();
         });
+    };
+
+    this.flash = function (id) {
+        $.get(this.opts.flashUrl, {id: id});
     };
 
     /**
@@ -288,9 +302,10 @@ var Notifications = (function(options) {
 
                     self.displayed.push(object.id);
 
-                    if (self.opts.theme !== null) {
+                    if (self.opts.theme !== null && object.flashed === 0) {
                         if (typeof engine !== "undefined") {
                             engine.show(object);
+                            self.flash(object.id);
                         } else {
                             console.warn("Unknown engine: " + self.opts.theme);
                         }
@@ -311,6 +326,7 @@ var Notifications = (function(options) {
                         $(self.opts.counters[i]).text(data.length);
                     }
                 }
+
             },
             dataType: "json",
             complete: setTimeout(function() {
