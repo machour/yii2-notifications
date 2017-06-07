@@ -16,14 +16,14 @@ class NotificationsController extends Controller
 		$class = $this->module->notificationClass;
 
 		// Delete all notifications seen or flashed
-		$criteria = ['or', 'seen=1'];
+		$criteria = ['or', ['seen=1'], ['flashed=1']];
 
 		// Delete old notification according to expiration time setting
 		if ( $this->module->expirationTime > 0 ) {
 			$criteria[] = ['<', 'created_at', time()-$this->module->expirationTime ];
 		}
 
-		$records_deleted = $class::deleteAll();
+		$records_deleted = $class::deleteAll($criteria);
 
 		echo "$records_deleted obselete notifications removed\n";
 	}
