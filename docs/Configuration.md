@@ -20,6 +20,8 @@ return [
             // Allow to have notification with same (user_id, key, key_id)
             // Default to FALSE
             'allowDuplicate' => false,
+            // Allow custom date formatting in database
+            'dbDateFormat' => 'Y-m-d H:i:s',
             // This callable should return your logged in user Id
             'userId' => function() {
                 return \Yii::$app->user->id;
