@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $type
  * @property boolean $seen
+ * @property boolean $flashed
  * @property string $created_at
  * @property integer $user_id
  */
