@@ -54,6 +54,11 @@ class NotificationsController extends Controller
         $results = [];
 
         foreach ($models as $model) {
+
+            // give user a chance to parse the date as needed
+            $date = \DateTime::createFromFormat($this->module->dbDateFormat, $model->created_at)
+                ->format('Y-m-d H:i:s');
+
             /** @var Notification $model */
             $results[] = [
                 'id' => $model->id,
@@ -63,7 +68,7 @@ class NotificationsController extends Controller
                 'url' => Url::to(['notifications/rnr', 'id' => $model->id]),
                 'key' => $model->key,
                 'flashed' => $model->flashed,
-                'date' => $model->created_at
+                'date' => $date,
             ];
         }
         return $results;

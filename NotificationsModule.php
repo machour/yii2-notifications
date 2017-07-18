@@ -26,6 +26,11 @@ class NotificationsModule extends Module
     public $allowDuplicate = false;
 
     /**
+     * @var string Database created_at field format
+     */
+    public $dbDateFormat = 'Y-m-d H:i:s';
+
+    /**
      * @var callable|integer The current user id
      */
     public $userId;
