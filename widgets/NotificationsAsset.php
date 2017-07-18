@@ -74,9 +74,17 @@ class NotificationsAsset extends AssetBundle
      */
     public static function getTimeAgoI18n($locale)
     {
-        $filename = 'locales/jquery.timeago.' . $locale . '.js';
+        $pattern = 'locales/jquery.timeago.%s.js';
+
+        $filename = sprintf($pattern, $locale);
         if (file_exists(Yii::getAlias(self::$assetsDirectory) . $filename)) {
             return $filename;
+        } else { // try harder by shortening the locale
+            $locale = substr($locale, 0, 2);
+            $filename = sprintf($pattern, $locale);
+            if (file_exists(Yii::getAlias(self::$assetsDirectory) . $filename)) {
+                return $filename;
+            }
         }
         return false;
     }
