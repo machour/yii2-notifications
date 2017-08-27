@@ -294,7 +294,29 @@ var Notifications = (function(options) {
             },
             success: function(data) {
                 var engine = self.themes[self.opts.theme];
-                var elem;
+                var elem, difference, notifId;
+                var returned = [];
+
+                $.each(data, function (index, object) {
+                    returned.push(object.id);
+                });
+
+                //find difference between displayed and returned notifications
+                difference = $.grep(self.displayed, function(x) {return $.inArray(x, returned) < 0});
+
+                //remove old notifications
+                if (difference.length > 0) {
+                    //iterate over displayed notification
+                    $(self.opts.listSelector + ' > div').each(function (index) {
+                        notifId = $(this).data('id');
+                        if (difference.indexOf(notifId) !== -1) {
+                            $(this).remove();
+                            position = self.displayed.indexOf(notifId);
+                            self.displayed.splice(position, 1);
+                        }
+                    });
+                }
+
                 $.each(data, function (index, object) {
                     if (self.displayed.indexOf(object.id) !== -1) {
                         return;
