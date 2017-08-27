@@ -162,7 +162,9 @@ var Notifications = (function(options) {
      */
     this.opts = $.extend({
         seenUrl: '', // Overwritten by widget
+        seenAllUrl: '', // Overwritten by widget
         deleteUrl: '', // Overwritten by widget
+        deleteAllUrl: '', // Overwritten by widget
         flashUrl: '',
         pollInterval: 5000,
         pollSeen: false,
@@ -170,6 +172,8 @@ var Notifications = (function(options) {
         delay: 5000,
         theme: null,
         counters: [],
+        markAllSeenSelector: null,
+        deleteAllSelector: null,
         listSelector: null,
         listItemTemplate:
             '<div class="row">' +
@@ -254,7 +258,7 @@ var Notifications = (function(options) {
      */
     this.delete = function (id) {
         $.get(this.opts.deleteUrl, {id: id}, function () {
-            $('.notification[data-id=' + id + ']').hide();
+            $('.notification[data-id=' + id + ']').remove();
         });
     };
 
@@ -357,6 +361,66 @@ var Notifications = (function(options) {
             timeout: opts.xhrTimeout
         });
     };
+
+    /**
+     * Register click event on selector
+     */
+    this.registerClickEvents = function () {
+        if (self.opts.markAllSeenSelector !== null){
+            $(self.opts.markAllSeenSelector).click(function(){
+                self.markAllSeen();
+            });
+        }
+        if (self.opts.deleteAllSelector !== null){
+            $(self.opts.deleteAllSelector).click(function(){
+                self.deleteAll();
+            });
+        }
+    };
+
+    /**
+     * Return array of all notification IDs displayed in listSelector
+     * @returns {Array}
+     */
+    this.getNotificationIds = function(){
+        var notificationIdList = [];
+        $(self.opts.listSelector + ' > div').each(function(index){
+            notificationIdList.push($(this).data('id'));
+        });
+
+        return notificationIdList;
+    };
+
+    /**
+     * Marks all notification as seen
+     */
+    this.markAllSeen = function () {
+        var ids = this.getNotificationIds();
+        $.post(this.opts.seenAllUrl, {ids: ids}, function () {
+            //hide all
+            var idsLength = ids.length;
+            for (var i = 0; i < idsLength; i++) {
+                $('.notification[data-id=' + ids[i] + ']').hide();
+            }
+        });
+    };
+
+    /**
+     * Delete all notifications
+     */
+    this.deleteAll = function () {
+        var ids = this.getNotificationIds();
+        $.post(this.opts.seenAllUrl, {ids: ids}, function () {
+            //remove all
+            var idsLength = ids.length;
+            for (var i = 0; i < idsLength; i++) {
+                $('.notification[data-id=' + ids[i] + ']').remove();
+            }
+        });
+    };
+
+    // register click events on jQuery elements
+    this.registerClickEvents();
 
     // Fire the initial poll
     this.poll();

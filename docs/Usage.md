@@ -48,6 +48,7 @@ NotificationsWidget::widget([
         '.notifications-header-count',
         '.notifications-icon-count'
     ],
+    'markAllSeenSelector' => '#notification-seen-all',
     'listSelector' => '#notifications',
 ]);
 
@@ -65,7 +66,7 @@ NotificationsWidget::widget([
                 <div id="notifications"></div>
             </ul>
         </li>
-        <li class="footer"><a href="#">View all</a></li>
+        <li class="footer"><a href="#">View all</a> / <a href="#" id="notification-seen-all">Mark all as seen</a></li>
     </ul>
 </li>
 ```
@@ -79,6 +80,8 @@ NotificationsWidget::widget([
 | pollSeen             | Whether to show already seen notifications                                  | false       |
 | xhrTimeout           | The XHR request timeout in milliseconds                                     | 2000        |
 | counters             | An array of jQuery selectors to update with the current notifications count | []          |
+| markAllSeenSelector  | A jQuery selector on which click mark all seen event will be fired          | null        |
+| deleteAllSelector    | A jQuery selector on which click delete all event will be fired             | null        |
 | listSelector         | A jQuery selector for your UI element that will holds the notification list | null        |
 | listItemTemplate     | An optional template for the list item.                                     | built-in    |
 | listItemBeforeRender | An optional callback to tweak the list item layout before rendering         | empty cb    |

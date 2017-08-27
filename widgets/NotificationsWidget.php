@@ -115,6 +115,18 @@ class NotificationsWidget extends Widget
     public $timeAgoLocale;
 
     /**
+     * @var string A jQuery selector on which click mark all seen event
+     *             will be fired
+     */
+    public $markAllSeenSelector = null;
+
+    /**
+     * @var string A jQuery selector on which click delete all event
+     *             will be fired
+     */
+    public $deleteAllSelector = null;
+
+    /**
      * @var string The jQuery selector in which the notifications list should
      *             be rendered
      */
@@ -197,6 +209,16 @@ class NotificationsWidget extends Widget
 
         if ($this->theme) {
             $params['theme'] = Html::encode($this->theme);
+        }
+
+        if ($this->markAllSeenSelector) {
+            $params['markAllSeenSelector'] = $this->markAllSeenSelector;
+            $params['seenAllUrl'] = Url::to(['/notifications/notifications/read-all']);
+        }
+
+        if ($this->deleteAllSelector) {
+            $params['deleteAllSelector'] = $this->deleteAllSelector;
+            $params['deleteAllUrl'] = Url::to(['/notifications/notifications/delete-all']);
         }
 
         if ($this->listSelector) {
