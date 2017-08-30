@@ -366,13 +366,13 @@ var Notifications = (function(options) {
      * Register click event on selector
      */
     this.registerClickEvents = function () {
-        if (self.opts.markAllSeenSelector !== null){
-            $(self.opts.markAllSeenSelector).click(function(){
+        if (self.opts.markAllSeenSelector !== null) {
+            $(self.opts.markAllSeenSelector).click(function() {
                 self.markAllSeen();
             });
         }
-        if (self.opts.deleteAllSelector !== null){
-            $(self.opts.deleteAllSelector).click(function(){
+        if (self.opts.deleteAllSelector !== null) {
+            $(self.opts.deleteAllSelector).click(function() {
                 self.deleteAll();
             });
         }
@@ -380,11 +380,12 @@ var Notifications = (function(options) {
 
     /**
      * Return array of all notification IDs displayed in listSelector
+     *
      * @returns {Array}
      */
-    this.getNotificationIds = function(){
+    this.getNotificationIds = function() {
         var notificationIdList = [];
-        $(self.opts.listSelector + ' > div').each(function(index){
+        $(self.opts.listSelector + ' > div').each(function(index) {
             notificationIdList.push($(this).data('id'));
         });
 
@@ -410,7 +411,7 @@ var Notifications = (function(options) {
      */
     this.deleteAll = function () {
         var ids = this.getNotificationIds();
-        $.post(this.opts.seenAllUrl, {ids: ids}, function () {
+        $.post(this.opts.deleteAllUrl, {ids: ids}, function () {
             //remove all
             var idsLength = ids.length;
             for (var i = 0; i < idsLength; i++) {

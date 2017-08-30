@@ -122,6 +122,8 @@ class NotificationsController extends Controller
             $notification->seen = 1;
             $notification->save();
         }
+
+        return true;
     }
 
     /**
@@ -139,6 +141,8 @@ class NotificationsController extends Controller
 
             $notification->delete();
         }
+
+        return true;
     }
 
     /**
