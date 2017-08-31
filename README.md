@@ -13,5 +13,5 @@ This module will install it's own table, and quickly allow you to:
   
 ![Growl notification](docs/main.png)
 
-A documentation is available [online](https://machour.idk.tn/yii/machour/yii2-notifications) and in the `docs` folder of the repository.
+A documentation is available in the [docs](docs/TOC.md) folder of this repository.
 You can also check this [live demo](https://machour.idk.tn/yii2-kitchen-sink/site/yii2-notifications).
