@@ -1,3 +1,5 @@
+# yii2-notifications documentation
+
 * [Installation](Installation.md)
 * [Concept](Concept.md)
 * [Configuration](Configuration.md)

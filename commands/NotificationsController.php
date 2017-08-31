@@ -25,6 +25,6 @@ class NotificationsController extends Controller
 
 		$records_deleted = $class::deleteAll($criteria);
 
-		echo "$records_deleted obselete notifications removed\n";
+		echo "$records_deleted obsolete notifications removed\n";
 	}
 }
