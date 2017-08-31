@@ -107,6 +107,45 @@ class NotificationsController extends Controller
     }
 
     /**
+     * Marks all notification as read
+     *
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
+     */
+    public function actionReadAll()
+    {
+        $notificationsIds = Yii::$app->request->post('ids', []);
+
+        foreach ($notificationsIds as $id) {
+            $notification = $this->getNotification($id);
+
+            $notification->seen = 1;
+            $notification->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete all notifications
+     *
+     * @throws HttpException Throws an exception if the notification is not
+     *         found, or if it don't belongs to the logged in user
+     */
+    public function actionDeleteAll()
+    {
+        $notificationsIds = Yii::$app->request->post('ids', []);
+
+        foreach ($notificationsIds as $id) {
+            $notification = $this->getNotification($id);
+
+            $notification->delete();
+        }
+
+        return true;
+    }
+
+    /**
      * Deletes a notification
      *
      * @param int $id The notification id
