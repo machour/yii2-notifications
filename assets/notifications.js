@@ -231,8 +231,10 @@ var Notifications = (function(options) {
 
             // Update all counters
             for (var i = 0; i < self.opts.counters.length; i++) {
-                if ($(self.opts.counters[i]).text() != parseInt($(self.opts.counters[i]).html())-1) {
-                    $(self.opts.counters[i]).text(parseInt($(self.opts.counters[i]).html())-1);
+                var currentCounter = $(self.opts.counters[i]),
+                    targetCount = parseInt(currentCounter.html()) - 1;
+                if (currentCounter.text() != targetCount) {
+                    currentCounter.text(targetCount || "");
                 }
             }
 
@@ -352,8 +354,9 @@ var Notifications = (function(options) {
 
                 // Update all counters
                 for (var i = 0; i < self.opts.counters.length; i++) {
-                    if ($(self.opts.counters[i]).text() != data.length) {
-                        $(self.opts.counters[i]).text(data.length);
+                    var counter=$(self.opts.counters[i]);
+                    if (counter.text() != data.length) {
+                        counter.text(data.length || "");
                     }
                 }
 
