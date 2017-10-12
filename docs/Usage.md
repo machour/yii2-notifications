@@ -85,6 +85,7 @@ NotificationsWidget::widget([
 | listSelector         | A jQuery selector for your UI element that will holds the notification list | null        |
 | listItemTemplate     | An optional template for the list item.                                     | built-in    |
 | listItemBeforeRender | An optional callback to tweak the list item layout before rendering         | empty cb    |
+| tag                  | The name of the tag used for each notification                              | 'div'       |
 
 
 Supported libraries
