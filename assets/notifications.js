@@ -205,7 +205,7 @@ var Notifications = (function(options) {
      * @returns {jQuery|HTMLElement|*}
      */
     this.renderRow = function (object) {
-        var keywords = ['id', 'title', 'description', 'url', 'type'];
+        var keywords = ['title', 'description', 'url'];
         var ret, html;
 
          html = $(self.opts.tag, {
