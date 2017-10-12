@@ -210,10 +210,8 @@ var Notifications = (function(options) {
 
          html = $(self.opts.tag, {
             class: "notification notification-" + object['type'] + " "+(object.seen ? 'notification-seen' : 'notification-unseen'),
-            data: {
-                route: object['url'],
-                id: object['id']
-            },
+            "data-route":object['url'],
+            "data-id":object['id'],
             html: self.opts.listItemTemplate
         })[0].outerHTML;
         
