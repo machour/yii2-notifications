@@ -209,9 +209,9 @@ var Notifications = (function(options) {
         var ret, html;
 
          html = $(self.opts.tag, {
-            class: "notification notification-" + object['type'] + " "+(object.seen ? 'notification-seen' : 'notification-unseen'),
-            "data-route":object['url'],
-            "data-id":object['id'],
+            class: "notification notification-" + object.type + " "+(object.seen ? 'notification-seen' : 'notification-unseen'),
+            "data-route": object.url,
+            "data-id": object.id,
             html: self.opts.listItemTemplate
         })[0].outerHTML;
         
