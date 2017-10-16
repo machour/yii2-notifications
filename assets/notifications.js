@@ -175,7 +175,7 @@ var Notifications = (function(options) {
         markAllSeenSelector: null,
         deleteAllSelector: null,
         listSelector: null,
-        tag: "<div>",
+        tag: '<div>',
         listItemTemplate:
             '<div class="row">' +
                 '<div class="col-xs-10">' +
