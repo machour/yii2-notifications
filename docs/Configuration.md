@@ -7,7 +7,7 @@ Before using this module, you have to run its migrations scripts:
 ./yii migrate/up --migrationPath=vendor/machour/yii2-notifications/migrations/
 ```
 
-You also need to enable the module in Yii `modules` section of the configuration file:
+You also need to enable the module in Yii `modules` section of the application configuration file:
 ```php
 return [
     // ...
@@ -16,7 +16,7 @@ return [
             'class' => 'machour\yii2\notifications\NotificationsModule',
             // Point this to your own Notification class
             // See the "Declaring your notifications" section below
-            'notificationClass' => 'app\models\Notification',
+            'notificationClass' => 'app\components\Notification',
             // Allow to have notification with same (user_id, key, key_id)
             // Default to FALSE
             'allowDuplicate' => false,
@@ -34,11 +34,11 @@ return [
 ```
 
 
-### Declaring your notifications
+### Declaring your notifications in app\components\Notification.php
 
 ```php
 
-namespace backend\components;
+namespace app\components;
 
 use Yii;
 use common\models\Meeting;
