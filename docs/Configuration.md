@@ -16,33 +16,51 @@ return [
             'class' => 'machour\yii2\notifications\NotificationsModule',
             // Point this to your own Notification class
             // See the "Declaring your notifications" section below
-            'notificationClass' => 'app\components\Notification',
+            'notificationClass' => 'common\components\Notification',
             // Allow to have notification with same (user_id, key, key_id)
             // Default to FALSE
             'allowDuplicate' => false,
             // Allow custom date formatting in database
             'dbDateFormat' => 'Y-m-d H:i:s',
             // This callable should return your logged in user Id
-            'userId' => function() {
+            'userId' => function () {
                 return \Yii::$app->user->id;
-            }
+            },
         ],
         // your other modules ..
     ],
     // ...
 ]
 ```
+### If UrlManager for url rewriting is active add these lines on your rules
+```php
+'urlManager' => [
+    // ...
+    'rules' => [
+    // ...
+    'notifications/poll' => '/notifications/notifications/poll',
+    'notifications/rnr' => '/notifications/notifications/rnr',
+    'notifications/read' => '/notifications/notifications/read',
+    'notifications/read-all' => '/notifications/notifications/read-all',
+    'notifications/delete-all' => '/notifications/notifications/delete-all',
+    'notifications/delete' => '/notifications/notifications/delete',
+    'notifications/flash' => '/notifications/notifications/flash',
+    // ...
+    ]
+    // ...
+]
 
+```
 
-### Declaring your notifications in app\components\Notification.php
+### Declaring your notifications in common\components\Notification.php
 
 ```php
 
-namespace app\components;
+namespace common\components;
 
 use Yii;
-use common\models\Meeting;
-use common\models\Message;
+use common\models\Meeting;//example models
+use common\models\Message;//example models
 use machour\yii2\notifications\models\Notification as BaseNotification;
 
 class Notification extends BaseNotification
@@ -106,7 +124,7 @@ class Notification extends BaseNotification
                 ]);
 
             case self::KEY_NO_DISK_SPACE:
-                // We don't have a key_id here
+                // We don't have a key_id here, simple message
                 return 'Please buy more space immediately';
         }
     }
@@ -124,7 +142,7 @@ class Notification extends BaseNotification
                 return ['message/read', 'id' => $this->key_id];
 
             case self::KEY_NO_DISK_SPACE:
-                return 'https://aws.amazon.com/';
+                return 'https://aws.amazon.com/';//simple route on external link
         };
     }
 
