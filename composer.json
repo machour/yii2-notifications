@@ -1,5 +1,5 @@
 {
-    "name": "machour/yii2-notifications",
+    "name": "machour/yii2-notifications-edited",
     "description": "Notifications for your Yii2 app",
       "keywords": ["yii", "notification", "growl", "noty", "notify"],
     "type": "yii2-extension",
