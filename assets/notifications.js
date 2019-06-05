@@ -175,6 +175,7 @@ var Notifications = (function(options) {
         markAllSeenSelector: null,
         deleteAllSelector: null,
         listSelector: null,
+        tag: '<div>',
         listItemTemplate:
             '<div class="row">' +
                 '<div class="col-xs-10">' +
@@ -204,14 +205,17 @@ var Notifications = (function(options) {
      * @returns {jQuery|HTMLElement|*}
      */
     this.renderRow = function (object) {
-        var keywords = ['id', 'title', 'description', 'url', 'type'];
-        var ret, html = self.opts.listItemTemplate;
+        var keywords = ['title', 'description', 'url'];
+        var ret, html;
 
-        html = '<div class="notification notification-{type} ' +
-            (object.seen ? 'notification-seen' : 'notification-unseen') +
-            '" data-route="{url}" data-id="{id}">' +
-                html +
-                '</div>';
+         html = $(self.opts.tag, {
+            class: "notification notification-" + object.type + " "+(object.seen ? 'notification-seen' : 'notification-unseen'),
+            "data-route": object.url,
+            "data-id": object.id,
+            html: self.opts.listItemTemplate
+        })[0].outerHTML;
+        
+        
 
         for (var i = 0; i < keywords.length; i++) {
             html = html.replace(new RegExp('{' + keywords[i] + '}', 'g'), object[keywords[i]]);
@@ -227,8 +231,10 @@ var Notifications = (function(options) {
 
             // Update all counters
             for (var i = 0; i < self.opts.counters.length; i++) {
-                if ($(self.opts.counters[i]).text() != parseInt($(self.opts.counters[i]).html())-1) {
-                    $(self.opts.counters[i]).text(parseInt($(self.opts.counters[i]).html())-1);
+                var currentCounter = $(self.opts.counters[i]),
+                    targetCount = parseInt(currentCounter.html()) - 1;
+                if (currentCounter.text() != targetCount) {
+                    currentCounter.text(targetCount || "");
                 }
             }
 
@@ -348,8 +354,9 @@ var Notifications = (function(options) {
 
                 // Update all counters
                 for (var i = 0; i < self.opts.counters.length; i++) {
-                    if ($(self.opts.counters[i]).text() != data.length) {
-                        $(self.opts.counters[i]).text(data.length);
+                    var counter=$(self.opts.counters[i]);
+                    if (counter.text() != data.length) {
+                        counter.text(data.length || "");
                     }
                 }
 

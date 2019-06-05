@@ -133,6 +133,11 @@ class NotificationsWidget extends Widget
     public $listSelector = null;
 
     /**
+     * @var string The wrapper tag for each item
+     */
+    public $tag = "div";
+    
+    /**
      * @var string The list item HTML template
      */
     public $listItemTemplate = null;
@@ -205,6 +210,7 @@ class NotificationsWidget extends Widget
             'pollSeen' => !!$this->pollSeen,
             'pollInterval' => Html::encode($this->pollInterval),
             'counters' => $this->counters,
+            'tag' => Html::beginTag($this->tag)
         ];
 
         if ($this->theme) {
