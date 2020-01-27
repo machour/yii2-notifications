@@ -56,7 +56,8 @@ class NotificationsController extends Controller
         foreach ($models as $model) {
 
             // give user a chance to parse the date as needed
-            $date = \DateTime::createFromFormat($this->module->dbDateFormat, $model->created_at)
+            $date = \DateTime::createFromFormat($this->module->dbDateFormat, $model->created_at, new \DateTimeZone('UTC'))
+                ->setTimezone(new \DateTimeZone(\Yii::$app->timezone))
                 ->format('Y-m-d H:i:s');
 
             /** @var Notification $model */
