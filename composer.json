@@ -15,7 +15,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "rmrevin/yii2-fontawesome": "~2.15"
+        "rmrevin/yii2-fontawesome": "*"
     },
     "autoload": {
         "psr-4": {
